@@ -4,7 +4,8 @@ import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-function drawTriangle(quantity) {
+// renders everything in a single root element
+function renderAll(quantity) {
   let key = 0;
   root.render(
     <div>
@@ -12,9 +13,11 @@ function drawTriangle(quantity) {
         <NumDotsForm/>
       </div>
       
-      {generateDots(quantity).map(dot => 
-        <div key={"dot" + key++}>{dot}</div> // React requires that each element of a list has a unique key
-      )}
+      {
+        generateDots(quantity).map(dot => 
+          <div key={"dot" + key++}>{dot}</div> // React requires that each element of a list has a unique key
+        )
+      }
     </div>
   );
 }
@@ -49,16 +52,18 @@ function calculateNextPoint(point) {
   let xPos = point[0];
   let yPos = point[1];
 
+  // picks one of the three corners at random
   let trianglePoint = Math.floor(Math.random() * 3) + 1;
 
+  // returns the midpoint between 'point' and the randomly chosen corner point
   switch(trianglePoint) {
-    case 1: // top -> (50, 66)
+    case 1: // top corner @(50, 66)
       return [(50+xPos)/2, (66+yPos)/2];
 
-    case 2: // right -> (75, 33)
+    case 2: // right bottom corner @(75, 33)
       return [(75+xPos)/2, (33+yPos)/2];
 
-    default: // left -> (25, 33)
+    default: // left bottom @(25, 33)
       return [(25+xPos)/2, ((33+yPos)/2)];
   }
 }
@@ -92,6 +97,8 @@ function generateDots(quantity) {
   return dots;
 }
 
+// this is the text form so the use can enter how many dots they want the
+// app to draw, then re-renders everything
 class NumDotsForm extends React.Component {
   constructor(props) {
     super(props);
@@ -106,7 +113,7 @@ class NumDotsForm extends React.Component {
   }
 
   handleSubmit(event) {
-    drawTriangle(this.state.value);
+    renderAll(this.state.value);
     event.preventDefault();
   }
 
@@ -123,5 +130,4 @@ class NumDotsForm extends React.Component {
   }
 }
 
-// renders the dots
-drawTriangle();
+renderAll();
