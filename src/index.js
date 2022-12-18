@@ -8,65 +8,43 @@ function drawTriangle(quantity) {
   let key = 0;
   root.render(
     <div>
-      <NumDotsForm/>
-      {generateDots(quantity).map(dot => 
-        <div key={"dot" + key++}>{dot}</div>
-      )}
+      <div id="formContainer">
+        <NumDotsForm/>
+      </div>
       
+      {generateDots(quantity).map(dot => 
+        <div key={"dot" + key++}>{dot}</div> // React requires that each element of a list has a unique key
+      )}
     </div>
   );
 }
 
+// checks if a point is within the area of the triangle
 function pointIsValid(xPos, yPos) {
-  const fr = (-33/25) * xPos + 132;
-  const fl = (33/25) * xPos;
+  const fr = (-33/25) * xPos + 132; //function of the right side of the triangle
+  const fl = (33/25) * xPos;        //function of the left side of the triangle
 
-  if(xPos >= 50) {
+  if(xPos >= 50) { //check which side of the triangle the point is on
     return yPos < fr;
   } else {
     return yPos < fl;
   }
 }
 
-function generateFirstPoint() {
+// generates the a random point within the area of the triangle
+function calculateFirstPoint() {
   let xPos;
   let yPos;
   do {
     xPos = Math.floor(Math.random() * 50) + 25;
     yPos = Math.floor(Math.random() * 33) + 33;
-  }while (!pointIsValid(xPos, yPos));
+  } while (!pointIsValid(xPos, yPos));
 
   return [xPos, yPos];
 }
 
-function generateDots(quantity) {  
-  var dots = [];
-
-  //triangle container
-  dots.push(<div id='top'></div>);
-  dots.push(<div id='right'></div>);
-  dots.push(<div id='left'></div>);
-
-  let point, xPos, yPos, setPoint;
-  point = generateFirstPoint();
-
-  for (var i = 0; i < quantity; i++) {
-    if(i > 0) {
-      point = calculateNextPoint(point);
-    }
-    xPos = point[0].toFixed(2);
-    yPos = point[1].toFixed(2);
-
-    setPoint = {
-      position: "absolute",
-      left: xPos+"vh",
-      bottom: yPos+"vh"
-    }
-    dots.push(<div className='dot' style={setPoint}></div>);
-  }
-  return dots;
-}
-
+// calculates the next point to plot, ie the mid point between a randomly
+// chosen corner point, and the previous plotted point
 function calculateNextPoint(point) {
   let xPos = point[0];
   let yPos = point[1];
@@ -83,6 +61,35 @@ function calculateNextPoint(point) {
     default: // left -> (25, 33)
       return [(25+xPos)/2, ((33+yPos)/2)];
   }
+}
+
+// generates the html of all the dots, which will be rendered in drawTriangle()
+function generateDots(quantity) {  
+  var dots = [];
+
+  //the three corners of the triangle
+  dots.push(<div id='top'></div>);
+  dots.push(<div id='right'></div>);
+  dots.push(<div id='left'></div>);
+
+  let point, xPos, yPos, setPoint;
+  point = calculateFirstPoint();
+
+  for (var i = 0; i < quantity; i++) {
+    if(i > 0) {
+      point = calculateNextPoint(point);
+    }
+    xPos = point[0].toFixed(2); // two decimal points for precision sake
+    yPos = point[1].toFixed(2);
+
+    setPoint = { // sets the location of the point
+      position: "absolute",
+      left: xPos+"vh",
+      bottom: yPos+"vh"
+    }
+    dots.push(<div className='dot' style={setPoint}></div>);
+  }
+  return dots;
 }
 
 class NumDotsForm extends React.Component {
@@ -116,4 +123,5 @@ class NumDotsForm extends React.Component {
   }
 }
 
+// renders the dots
 drawTriangle();
