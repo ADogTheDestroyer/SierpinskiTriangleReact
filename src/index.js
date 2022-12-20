@@ -63,7 +63,7 @@ class Triangle extends React.Component {
     }
   }
 
-  // generates the html of all the dots, which will be rendered in drawTriangle()
+  // generates the html of all the dots, which will be rendered in the render()
   generateDots(quantity) {  
     var dots = [];
 
