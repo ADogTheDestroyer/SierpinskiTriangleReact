@@ -1,6 +1,6 @@
 body {
   margin: 5vh;
-  background-color: rgb(62, 146, 214);
+  background-image: linear-gradient(to right, red , rgb(104, 0, 189));
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -36,7 +36,7 @@ input {
 
 #formContainer {
   width: 30vw;
-  background-color: rgb(99, 97, 6);
+  background-color: rgb(29, 29, 29);
   color: aliceblue;
   padding: 2vh;
   border-radius: 10px;
