@@ -112,12 +112,11 @@ class Triangle extends React.Component {
 
   render() {
     const quantity = this.props.quantity;
-    let key = 0;
     return (
       <div id="triangleContainer">
         {
           this.generateDots(quantity).map(dot => 
-            <div key={"dot" + key++}>{dot}</div> // React requires that each element of a list has a unique key
+            <div key={crypto.randomUUID}>{dot}</div> // React requires that each element of a list has a unique key
           )
         }
       </div>
