@@ -34,7 +34,19 @@ input {
   vertical-align: top; /* here */
 }
 
-#formContainer {
+#formsContainer {
+  width: 35vw;
+  background-image: linear-gradient(to bottom right, rgb(218, 218, 218) , rgb(43, 43, 43));
+  color: aliceblue;
+  padding: 2vh;
+  border-radius: 25px;
+  border: 0.5vh solid rgb(85, 85, 85);
+  display: inline-block;
+  vertical-align: top; /* here */
+  margin-left: 1vw;
+}
+
+#forms {
   width: 30vw;
   background-color: rgb(29, 29, 29);
   color: aliceblue;
@@ -44,13 +56,14 @@ input {
   display: inline-block;
   vertical-align: top; /* here */
   margin-left: 1vw;
+  margin-bottom: 1vh;
 }
 
 /* Below are the css for all the dots, including the corner points */
 .dot {
   height: 1px;
   width: 1px;
-  background-color: rgb(0, 195, 255);
+  background-color: rgb(255, 38, 0);
   z-index: 0;
   border-radius: 25px;
 }
