@@ -12,7 +12,7 @@ var globalLeftPoint = [10, 5];
 // renders everything in a single root element
 function renderAll(quantity) {
   root.render(
-    <div id="containsAll">
+    <div>
       <Triangle quantity={quantity} topPoint={globalTopPoint} rightPoint={globalRightPoint} leftPoint={globalLeftPoint}/>
       <div id="formsContainer">
         <PointForm/>
@@ -116,7 +116,7 @@ class Triangle extends React.Component {
       <div id="triangleContainer">
         {
           this.generateDots(quantity).map(dot => 
-            <div key={crypto.randomUUID}>{dot}</div> // React requires that each element of a list has a unique key
+            <div key={crypto.randomUUID()}>{dot}</div> // React requires that each element of a list has a unique key
           )
         }
       </div>
@@ -168,6 +168,8 @@ class PointForm extends React.Component {
     this.handleChange2 = this.handleChange2.bind(this);
     this.handleChange3 = this.handleChange3.bind(this);
 
+    this.handleSetDefault = this.handleSetDefault.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -181,7 +183,21 @@ class PointForm extends React.Component {
     this.setState({left: event.target.value});
   }
 
+  handleSetDefault(event) {
+    event.preventDefault();
+
+    globalTopPoint = [55, 70];
+    globalRightPoint = [100, 5];
+    globalLeftPoint = [10, 5];
+
+    this.setState({top: '55, 70', right: '100, 5', left: '10, 5'});
+
+    renderAll();
+  }
+
   handleSubmit(event) {
+    event.preventDefault();
+
     globalTopPoint = this.state.top.split(",");
     globalRightPoint = this.state.right.split(",");
     globalLeftPoint = this.state.left.split(",");
@@ -191,7 +207,6 @@ class PointForm extends React.Component {
     globalLeftPoint = [parseInt(globalLeftPoint[X]), parseInt(globalLeftPoint[Y])];
 
     renderAll();
-    event.preventDefault();
   }
 
   render() {
@@ -204,7 +219,8 @@ class PointForm extends React.Component {
             <input type="text" value={this.state.right} onChange={this.handleChange2}/> Bottom Right<br/>
             <input type="text" value={this.state.left} onChange={this.handleChange3}/> Bottom Left<br/>
           </label>
-          <input type="submit" value="Draw" />
+          <button type="submit">Set Points</button>
+          <button onClick={this.handleSetDefault}>Default</button>
         </form>
       </div>
     );
