@@ -6,7 +6,7 @@ I am very excited to have completed my very first react application. I saw a vid
 
 2. Install all dependencies with ```npm i``` or ```npm install``` (from inside the repository folder)
 
-3. Now you're good to go and run ```npm start``` to run the application. It will take a few seconds, but a window should up in your browser. If it doesn't, type ```http://localhost:3000/``` in the search bar of your browser.
+3. Now you're good to go and run ```npm start``` to run the application. It will take a few seconds, but a window should pop up in your browser. If it doesn't, type ```http://localhost:3000/``` in the search bar of your browser.
 
 4. Start trying increasingly larger numbers to see Sierpinski's triangle form. I recommend staying below 25000 dots.
 
