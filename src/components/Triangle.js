@@ -1,5 +1,6 @@
 import React from 'react';
 import '../index.css';
+
 const X = 0, Y = 1; 
 
 class Triangle extends React.Component {
